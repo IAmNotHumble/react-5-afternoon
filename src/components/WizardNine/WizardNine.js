@@ -1,5 +1,8 @@
 import React,  { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
+
+import { updateAddressOne, updateAddressTwo, updateAddressThree } from '../../ducks/reducer'
 
 class WizardNine extends Component {
 
@@ -10,9 +13,9 @@ class WizardNine extends Component {
                     
                     <p>What is your address?</p> <br />
 
-                    <input type="text" placeholder="Line One" onChange={this.props.updateAddLineOne}/>
-                    <input type="text" placeholder="Line Two" onChange={this.props.updateAddLineTwo}/>
-                    <input type="text" placeholder="Line Three" onChange={this.props.updateAddLineThree}/>
+                    <input type="text" placeholder="Line One" onChange={(e) => this.props.updateAddressOne(e.target.value)}/>
+                    <input type="text" placeholder="Line Two" onChange={(e) => this.props.updateAddressTwo(e.target.value)}/>
+                    <input type="text" placeholder="Line Three" onChange={(e) => this.props.updateAddressThree(e.target.value)}/>
                 
                     
                     <Link to="/wTen"><button className="margin-btn"> Next </button></Link>
@@ -22,4 +25,12 @@ class WizardNine extends Component {
     }
 }
 
-export default WizardNine;
+let mapStateToProps = (state) => {
+    return {
+        addressOne: state.addressOne,
+        addressTwo: state.addressTwo,
+        addressThree: state.addressThree
+    }
+}
+
+export default connect (mapStateToProps, {updateAddressOne, updateAddressTwo, updateAddressThree}) (WizardNine);
